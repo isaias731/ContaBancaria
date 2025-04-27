@@ -1,0 +1,44 @@
+public class AplicacaoBanco {
+    public static void main(String[] args) {
+        Banco meuBanco = new Banco();
+
+        ContaBancaria conta1 = new ContaBancaria("111-A", "Ana Maria");
+        ContaBancaria conta2 = new ContaBancaria("222-B", "João Pedro");
+        ContaBancaria conta3 = new ContaBancaria("333-C", "Carla Souza");
+
+        meuBanco.adicionarConta(conta1);
+        meuBanco.adicionarConta(conta2);
+        meuBanco.adicionarConta(conta3);
+
+        System.out.println("\n--- Realizando Operações ---");
+
+        ContaBancaria contaParaDeposito1 = meuBanco.buscarConta("111-A");
+        if (contaParaDeposito1 != null) {
+            contaParaDeposito1.depositar(150.00);
+        }
+
+        ContaBancaria contaParaDeposito2 = meuBanco.buscarConta("222-B");
+        if (contaParaDeposito2 != null) {
+            contaParaDeposito2.depositar(75.50);
+        }
+
+        ContaBancaria contaParaSaque1 = meuBanco.buscarConta("222-B");
+        if (contaParaSaque1 != null) {
+            contaParaSaque1.sacar(20.00);
+        }
+
+        ContaBancaria contaParaSaque2 = meuBanco.buscarConta("333-C");
+        if (contaParaSaque2 != null) {
+            contaParaSaque2.sacar(50.00); // Tentativa de saque com saldo inicial zero
+        }
+
+        ContaBancaria contaParaSaque3 = meuBanco.buscarConta("111-A");
+        if (contaParaSaque3 != null) {
+            contaParaSaque3.sacar(200.00); // Tentativa de saque maior que o saldo (150.00)
+        }
+
+        System.out.println("\n--- Resumo das Contas Após Operações ---");
+
+        meuBanco.listarContas();
+    }
+}

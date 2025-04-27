@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Banco {
+    private List<ContaBancaria> contas;
+
+    public Banco() {
+        this.contas = new ArrayList<>();
+    }
+
+    public void adicionarConta(ContaBancaria conta) {
+        this.contas.add(conta);
+        System.out.println("Conta " + conta.getNumeroConta() + " adicionada ao banco.");
+    }
+
+    public ContaBancaria buscarConta(String numeroConta) {
+        for (ContaBancaria conta : this.contas) {
+            if (conta.getNumeroConta().equals(numeroConta)) {
+                return conta;
+            }
+        }
+        System.out.println("Conta com número " + numeroConta + " não encontrada.");
+        return null; // Retorna null se a conta não for encontrada
+    }
+
+    public void listarContas() {
+        if (this.contas.isEmpty()) {
+            System.out.println("Não há contas cadastradas no banco.");
+            return;
+        }
+        System.out.println("\n--- Listagem de Contas do Banco ---");
+        for (ContaBancaria conta : this.contas) {
+            conta.exibirResumo();
+            System.out.println("----------------------------------");
+        }
+    }
+
+    public static void main(String[] args) {
+        Banco meuBanco = new Banco();
+
+        ContaBancaria conta1 = new ContaBancaria("1234-5", "Carlos Alberto");
+        ContaBancaria conta2 = new ContaBancaria("6789-0", "Fernanda Martins");
+
+        meuBanco.adicionarConta(conta1);
+        meuBanco.adicionarConta(conta2);
+
+        System.out.println("\n--- Buscar Conta ---");
+        ContaBancaria contaEncontrada = meuBanco.buscarConta("6789-0");
+        if (contaEncontrada != null) {
+            contaEncontrada.exibirResumo();
+        }
+
+        meuBanco.buscarConta("9999-9"); // Exemplo de busca de conta inexistente
+
+        meuBanco.listarContas();
+    }
+}
